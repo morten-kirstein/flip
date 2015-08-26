@@ -1,0 +1,14 @@
+﻿<div class="employees">
+
+	<div class="employee flip-container" *ng-for="#tile of tiles; #i = index">
+		<div class="flipper" [class.hover]="selected.indexOf(i)>=0 || found.indexOf(i)>=0">
+			<div class="front">
+				<img class="employee__image" src="/assets/tile.png" (click)="flipTile(i)" />
+			</div>
+			<div class="back">
+				<img class="employee__image" src="{{tile.Image}}" />
+				<div class="employee__title">{{tile.Name}}</div>
+			</div>
+		</div>
+	</div>
+</div>

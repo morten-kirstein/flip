@@ -1,0 +1,6 @@
+D:\Playground\TsTest\TsTest\TsTest\obj\Debug\TsTest.csprojResolveAssemblyReference.cache
+D:\Playground\TsTest\TsTest\TsTest\bin\TsTest.dll.config
+D:\Playground\TsTest\TsTest\TsTest\bin\TsTest.dll
+D:\Playground\TsTest\TsTest\TsTest\bin\TsTest.pdb
+D:\Playground\TsTest\TsTest\TsTest\obj\Debug\TsTest.dll
+D:\Playground\TsTest\TsTest\TsTest\obj\Debug\TsTest.pdb
