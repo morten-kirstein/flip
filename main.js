@@ -22,6 +22,7 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
             this.tiles = new Array();
             this.selected = new Array();
             this.found = new Array();
+            this.score = 0;
             this.addEployee("NIKOLAJ SCHOUBOE", "/assets/nikolaj-schouboe-impact.jpg");
             this.addEployee("MARTIN CHRISTENSEN", "/assets/martin-christensen-impact.jpg");
             this.addEployee("MIKKEL STÆRK", "/assets/IMG_4182.jpg");
@@ -39,6 +40,7 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
         }
         AppComponent.prototype.flipTile = function (index) {
             if (this.found.indexOf(index) < 0) {
+                this.score += 1;
                 if (this.selected.length < 2) {
                     this.selected.push(index);
                     if (this.selected.length == 2) {
@@ -46,7 +48,7 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
                             this.found.push(this.selected[0]);
                             this.found.push(this.selected[1]);
                             if (this.found.length == this.tiles.length) {
-                                // alert("TILLYKKE!");
+                                alert("TILLYKKE! din score blev: " + this.score.toString());
                                 this.newGame();
                             }
                         }
@@ -65,6 +67,7 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
             this.employees.push(employee);
         };
         AppComponent.prototype.newGame = function () {
+            this.score = 0;
             this.selected = new Array();
             this.found = new Array();
             this.shuffle();

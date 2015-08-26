@@ -24,12 +24,15 @@ export class AppComponent {
     employees: Array<Employee> = new Array<Employee>();
 	tiles: Array<Employee> = new Array<Employee>();
 	selected: Array<number> = new Array<number>(); 
-	found: Array<number> = new Array<number>(); 
+    found: Array<number> = new Array<number>(); 
+    score: number = 0;
 
 
     flipTile(index): void {
 
 		if (this.found.indexOf(index)<0) {
+
+            this.score += 1;
 
 			if (this.selected.length < 2) {
 				this.selected.push(index);
@@ -40,8 +43,8 @@ export class AppComponent {
 						this.found.push(this.selected[0])
 						this.found.push(this.selected[1]);
 
-						if (this.found.length == this.tiles.length) {
-							// alert("TILLYKKE!");
+                        if (this.found.length == this.tiles.length) {
+                            alert("TILLYKKE! din score blev: " + this.score.toString());
 							this.newGame();
 						}
 
@@ -86,8 +89,8 @@ export class AppComponent {
 
     }
 
-	newGame(): void {
-
+    newGame(): void {
+        this.score = 0;
 		this.selected = new Array<number>();
 		this.found = new Array<number>(); 
 		this.shuffle();
