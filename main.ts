@@ -1,6 +1,16 @@
 ﻿import {Component, View, NgFor, NgIf, bootstrap} from 'angular2/angular2';
+import {FirebaseService} from 'firebaseService';
 
+class HighScore {
 
+    public Name: string;
+    public Score: number;
+
+    contructor(name, score) {
+        this.Name = name;
+        this.Score = score;
+    }
+}
 
 class Employee {
 
@@ -26,7 +36,7 @@ export class AppComponent {
 	selected: Array<number> = new Array<number>(); 
     found: Array<number> = new Array<number>(); 
     score: number = 0;
-
+    HighScore: Firebase;
 
     flipTile(index): void {
 
@@ -44,8 +54,9 @@ export class AppComponent {
 						this.found.push(this.selected[1]);
 
                         if (this.found.length == this.tiles.length) {
-                            alert("TILLYKKE! din score blev: " + this.score.toString());
-							this.newGame();
+
+                            this.getHighscore(this.score);
+
 						}
 
 					}
@@ -60,6 +71,37 @@ export class AppComponent {
 
 
     }
+
+    getHighscore(score: number) {
+        var isThisHighscore = false;
+        this.HighScore.orderByChild("Score").limitToFirst(3).once("value", val => {
+            console.log(this, val);
+        });        
+    }
+
+    checkHighscore(items) {
+        var isThisHighscore = false;
+        items.forEach(function (data) {
+            var item = data.val();
+            if (this.score < item.Score) {
+                isThisHighscore = true;
+            }
+
+        });
+
+
+        if (isThisHighscore) {
+            var name = prompt("TILLYKKE du nåede highscore listen! din score blev: " + this.score.toString(), "Skriv dity navn her");
+
+            this.addHighScore(name, this.score);
+            //alert("TILLYKKE! din score blev: " + score.toString());
+        } else {
+            alert("din score blev: " + this.score.toString() + ", du kom desværre ikke på highscore listen");
+        }
+
+        this.newGame();
+
+    }
 	
 	addEployee(name, image):void {
 		var employee = new Employee();
@@ -69,6 +111,16 @@ export class AppComponent {
 	}
 
     constructor() {
+
+
+        this.HighScore = new FirebaseService().highscore;
+        //this.addHighScore("sfdfssfd", 40);
+        
+        //this.addHighScore("sfdf", 45);
+        //this.addHighScore("R", 50);
+        //this.addHighScore("A", 51);
+        //this.addHighScore("Mette", 65);
+
 
         this.addEployee("NIKOLAJ SCHOUBOE", "/assets/nikolaj-schouboe-impact.jpg");
         this.addEployee("MARTIN CHRISTENSEN", "/assets/martin-christensen-impact.jpg");
@@ -88,14 +140,22 @@ export class AppComponent {
 		this.shuffle();
 
     }
-
     newGame(): void {
         this.score = 0;
 		this.selected = new Array<number>();
 		this.found = new Array<number>(); 
 		this.shuffle();
 
-	}
+    }
+
+    addHighScore(name: string, score: number): void {
+        var highscore = new HighScore();
+        highscore.Name = name;
+        highscore.Score = score;
+
+        this.HighScore.push(highscore);
+    }
+
 
 	shuffle():void {
 		var currentIndex = this.tiles.length, temporaryValue, randomIndex;

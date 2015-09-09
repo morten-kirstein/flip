@@ -6,7 +6,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
         case 4: return decorators.reduceRight(function(o, d) { return (d && d(target, key, o)) || o; }, desc);
     }
 };
-define(["require", "exports", 'angular2/angular2'], function (require, exports, angular2_1) {
+define(["require", "exports", 'angular2/angular2', 'firebaseService'], function (require, exports, angular2_1, firebaseService_1) {
+    var HighScore = (function () {
+        function HighScore() {
+        }
+        HighScore.prototype.contructor = function (name, score) {
+            this.Name = name;
+            this.Score = score;
+        };
+        return HighScore;
+    })();
     var Employee = (function () {
         function Employee() {
         }
@@ -23,6 +32,12 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
             this.selected = new Array();
             this.found = new Array();
             this.score = 0;
+            this.HighScore = new firebaseService_1.FirebaseService().highscore;
+            //this.addHighScore("sfdfssfd", 40);
+            //this.addHighScore("sfdf", 45);
+            //this.addHighScore("R", 50);
+            //this.addHighScore("A", 51);
+            //this.addHighScore("Mette", 65);
             this.addEployee("NIKOLAJ SCHOUBOE", "/assets/nikolaj-schouboe-impact.jpg");
             this.addEployee("MARTIN CHRISTENSEN", "/assets/martin-christensen-impact.jpg");
             this.addEployee("MIKKEL STÆRK", "/assets/IMG_4182.jpg");
@@ -48,8 +63,7 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
                             this.found.push(this.selected[0]);
                             this.found.push(this.selected[1]);
                             if (this.found.length == this.tiles.length) {
-                                alert("TILLYKKE! din score blev: " + this.score.toString());
-                                this.newGame();
+                                this.getHighscore(this.score);
                             }
                         }
                     }
@@ -59,6 +73,30 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
                     this.selected.push(index);
                 }
             }
+        };
+        AppComponent.prototype.getHighscore = function (score) {
+            var _this = this;
+            var isThisHighscore = false;
+            this.HighScore.orderByChild("Score").limitToFirst(3).once("value", function (val) {
+                console.log(_this, val);
+            });
+        };
+        AppComponent.prototype.checkHighscore = function (items) {
+            var isThisHighscore = false;
+            items.forEach(function (data) {
+                var item = data.val();
+                if (this.score < item.Score) {
+                    isThisHighscore = true;
+                }
+            });
+            if (isThisHighscore) {
+                var name = prompt("TILLYKKE du nåede highscore listen! din score blev: " + this.score.toString(), "Skriv dity navn her");
+                this.addHighScore(name, this.score);
+            }
+            else {
+                alert("din score blev: " + this.score.toString() + ", du kom desværre ikke på highscore listen");
+            }
+            this.newGame();
         };
         AppComponent.prototype.addEployee = function (name, image) {
             var employee = new Employee();
@@ -71,6 +109,12 @@ define(["require", "exports", 'angular2/angular2'], function (require, exports, 
             this.selected = new Array();
             this.found = new Array();
             this.shuffle();
+        };
+        AppComponent.prototype.addHighScore = function (name, score) {
+            var highscore = new HighScore();
+            highscore.Name = name;
+            highscore.Score = score;
+            this.HighScore.push(highscore);
         };
         AppComponent.prototype.shuffle = function () {
             var currentIndex = this.tiles.length, temporaryValue, randomIndex;

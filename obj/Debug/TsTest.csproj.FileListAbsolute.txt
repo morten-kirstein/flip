@@ -4,3 +4,9 @@ D:\Playground\TsTest\TsTest\TsTest\bin\TsTest.dll
 D:\Playground\TsTest\TsTest\TsTest\bin\TsTest.pdb
 D:\Playground\TsTest\TsTest\TsTest\obj\Debug\TsTest.dll
 D:\Playground\TsTest\TsTest\TsTest\obj\Debug\TsTest.pdb
+C:\wwwroot\TypeScriptAngular2Game\flip\bin\TsTest.dll.config
+C:\wwwroot\TypeScriptAngular2Game\flip\bin\TsTest.dll
+C:\wwwroot\TypeScriptAngular2Game\flip\bin\TsTest.pdb
+C:\wwwroot\TypeScriptAngular2Game\flip\obj\Debug\TsTest.csprojResolveAssemblyReference.cache
+C:\wwwroot\TypeScriptAngular2Game\flip\obj\Debug\TsTest.dll
+C:\wwwroot\TypeScriptAngular2Game\flip\obj\Debug\TsTest.pdb
