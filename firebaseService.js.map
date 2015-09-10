@@ -1,0 +1,1 @@
+{"version":3,"file":"firebaseService.js","sourceRoot":"","sources":["firebaseService.ts"],"names":["FirebaseService","FirebaseService.constructor"],"mappings":"AAAA,uDAAuD;AACvD,uDAAuD;;IAEvD;QAEIA;YACIC,IAAIA,CAACA,SAASA,GAAGA,IAAIA,QAAQA,CAACA,qDAAqDA,CAACA,CAACA;QACzFA,CAACA;QACLD,sBAACA;IAADA,CAACA,AALD,IAKC;IALY,uBAAe,kBAK3B,CAAA"}

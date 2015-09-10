@@ -34,10 +34,6 @@ define(["require", "exports", 'angular2/angular2', 'firebaseService'], function 
             this.score = 0;
             this.HighScore = new firebaseService_1.FirebaseService().highscore;
             //this.addHighScore("sfdfssfd", 40);
-            //this.addHighScore("sfdf", 45);
-            //this.addHighScore("R", 50);
-            //this.addHighScore("A", 51);
-            //this.addHighScore("Mette", 65);
             this.addEployee("NIKOLAJ SCHOUBOE", "/assets/nikolaj-schouboe-impact.jpg");
             this.addEployee("MARTIN CHRISTENSEN", "/assets/martin-christensen-impact.jpg");
             this.addEployee("MIKKEL STÆRK", "/assets/IMG_4182.jpg");
@@ -77,20 +73,23 @@ define(["require", "exports", 'angular2/angular2', 'firebaseService'], function 
         AppComponent.prototype.getHighscore = function (score) {
             var _this = this;
             var isThisHighscore = false;
-            this.HighScore.orderByChild("Score").limitToFirst(3).once("value", function (val) {
-                console.log(_this, val);
+            this.HighScore.orderByChild("Score").limitToFirst(5).once("value", function (val) {
+                //   console.log(this, val);
+                _this.checkHighscore(val);
             });
         };
         AppComponent.prototype.checkHighscore = function (items) {
             var isThisHighscore = false;
+            var currentScore = this.score;
             items.forEach(function (data) {
                 var item = data.val();
-                if (this.score < item.Score) {
+                if (currentScore < item.Score) {
                     isThisHighscore = true;
                 }
+                console.log(item.Name, item.Score);
             });
             if (isThisHighscore) {
-                var name = prompt("TILLYKKE du nåede highscore listen! din score blev: " + this.score.toString(), "Skriv dity navn her");
+                var name = prompt("TILLYKKE du nåede highscore listen! din score blev: " + this.score.toString(), "Skriv dit navn her");
                 this.addHighScore(name, this.score);
             }
             else {

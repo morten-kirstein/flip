@@ -52,12 +52,11 @@
     <TypeScriptCompile Include="main.ts" />
     <TypeScriptCompile Include="typings\angular2\angular2.d.ts" />
     <TypeScriptCompile Include="typings\es6-promise\es6-promise.d.ts" />
+    <TypeScriptCompile Include="typings\firebase\firebase.d.ts" />
     <TypeScriptCompile Include="typings\rx\rx-lite.d.ts" />
     <TypeScriptCompile Include="typings\rx\rx.d.ts" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="typings\firebase\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">12.0</VisualStudioVersion>
   </PropertyGroup>
